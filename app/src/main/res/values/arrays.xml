@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="route_entry">
+        <item>All</item>
+        <item>Bypass LAN</item>
+        <item>Bypass LAN &amp; China</item>
+    </string-array>
+
+    <string-array name="route_value" translatable="false">
+        <item>all</item>
+        <item>bypass-lan</item>
+        <item>bypass-china</item>
+    </string-array>
+
+    <string-array name="protocol_entry">
+                <item>WebSocket</item>
+                <item>Quic</item>
+    </string-array>
+    <string-array name="protocol_value" translatable="false">
+        <item>wss</item>
+        <item>quic</item>
+    </string-array>
+    <string-array name="verify_cert_entry">
+                <item>skip verify</item>
+                <item>self signed</item>
+                <item>charge certificate</item>
+    </string-array>
+    <string-array name="verify_cert_value" translatable="false">
+        <item>skip</item>
+        <item>self_signed</item>
+        <item>root_cert</item>
+    </string-array>
+</resources>

@@ -1,0 +1,85 @@
+apply plugin: 'com.android.application'
+
+if(file('../sign.gradle').exists()) {
+    apply from: '../sign.gradle'
+} else {
+    logger.error('no such file: ../sign.gradle')
+}
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.1"
+    defaultConfig {
+        applicationId "io.github.xSocks"
+        minSdkVersion 21
+        targetSdkVersion 23
+        versionCode 150
+        versionName '1.0.6'
+    }
+    lintOptions {
+        abortOnError true
+        disable 'MissingTranslation'
+    }
+    buildTypes {
+        release {
+            try {
+                signingConfig signingConfigs.release
+            } catch (ex) {
+                logger.error('signing error: ' + ex)
+            }
+            lintOptions {
+                checkReleaseBuilds false
+                abortOnError false
+            }
+            zipAlignEnabled true
+            minifyEnabled true
+            shrinkResources false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        applicationVariants.all { variant ->
+            variant.outputs.each { output ->
+                appendVersionNameVersionCode(variant, output, defaultConfig)
+            }
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    packagingOptions {
+        exclude 'META-INF/services/javax.annotation.processing.Processor'
+    }
+    productFlavors {
+    }
+    gradle.projectsEvaluated {
+        tasks.withType(JavaCompile) {
+            options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+        }
+    }
+}
+
+def appendVersionNameVersionCode(variant, output, defaultConfig) {
+    def versionName = defaultConfig.versionName
+    if(variant.buildType.name == android.buildTypes.debug.name) {
+        versionName += "-beta"
+    }
+    def file = output.outputFile
+    //output.outputFile = new File(file.parent, "xSocks.apk".replace(".apk", "-v" + versionName + ".apk"))
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile 'com.android.support:design:23.1.1'
+    compile 'com.android.support:support-annotations:23.1.1'
+    compile 'io.reactivex:rxjava:1.0.14'
+    compile 'io.reactivex:rxandroid:1.0.1'
+    compile 'io.reactivex:rxjava-async-util:0.21.0'
+    compile 'com.trello:rxlifecycle:0.3.0'
+    compile 'com.trello:rxlifecycle-components:0.3.0'
+    compile('com.mikepenz.materialdrawer:library:2.9.7@aar') {
+        transitive = true
+    }
+    compile 'dnsjava:dnsjava:2.1.7'
+    compile 'com.google.code.gson:gson:2.3.1'
+    compile 'com.nostra13.universalimageloader:universal-image-loader:1.8.4'
+}

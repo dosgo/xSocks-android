@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+            android:title="@string/proxy_cat">
+
+        <io.github.xSocks.preferences.ProfileEditTextPreference
+                android:defaultValue="Default"
+                android:key="profileName"
+                android:summary="@string/profile_summary"
+                android:title="@string/profile"
+                android:singleLine="true">
+        </io.github.xSocks.preferences.ProfileEditTextPreference>
+        <io.github.xSocks.preferences.SummaryListPreference
+            android:defaultValue="wss"
+            android:key="protocol"
+            android:entries="@array/protocol_entry"
+            android:entryValues="@array/protocol_value"
+            android:title="@string/protocol_list">
+        </io.github.xSocks.preferences.SummaryListPreference>
+
+        <io.github.xSocks.preferences.SummaryEditTextPreference
+                android:defaultValue=""
+                android:key="proxy"
+                android:summary="@string/proxy_summary"
+                android:title="@string/proxy"
+                android:singleLine="true">
+        </io.github.xSocks.preferences.SummaryEditTextPreference>
+        <io.github.xSocks.preferences.SummaryEditTextPreference
+                android:inputType="number"
+                android:defaultValue="443"
+                android:key="remotePort"
+                android:summary="@string/remote_port_summary"
+                android:title="@string/remote_port"
+                android:singleLine="true">
+        </io.github.xSocks.preferences.SummaryEditTextPreference>
+        <io.github.xSocks.preferences.PasswordEditTextPreference
+                android:inputType="textPassword"
+                android:defaultValue=""
+                android:key="sitekey"
+                android:summary="@string/sitekey_summary"
+                android:title="@string/sitekey"
+                >
+        </io.github.xSocks.preferences.PasswordEditTextPreference>
+    </PreferenceCategory>
+
+    <PreferenceCategory
+            android:title="@string/feature_cat">
+        <!--
+      <io.github.xSocks.preferences.SummaryListPreference
+              android:defaultValue="all"
+              android:key="route"
+              android:entries="@array/route_entry"
+              android:entryValues="@array/route_value"
+              android:summary="@string/route_list_summary"
+              android:title="@string/route_list">
+      </io.github.xSocks.preferences.SummaryListPreference>
+        -->
+      <CheckBoxPreference
+          android:defaultValue="true"
+          android:key="isGlobalProxy"
+          android:disableDependentsState="true"
+          android:summary="@string/auto_set_proxy_summary"
+          android:title="@string/auto_set_proxy">
+      </CheckBoxPreference>
+      <Preference
+          android:key="proxyedApps"
+          android:dependency="isGlobalProxy"
+          android:summary="@string/proxied_apps_summary"
+          android:title="@string/proxied_apps">
+          <intent android:action="io.github.xsocks.ui.AppManagerActivity"/>
+      </Preference>
+      <!--
+      <CheckBoxPreference
+              android:key="isUdpDns"
+              android:defaultValue="false"
+              android:summary="@string/udp_dns_summary"
+              android:title="@string/udp_dns">
+      </CheckBoxPreference>
+      -->
+
+
+        <io.github.xSocks.preferences.SummaryListPreference
+            android:defaultValue="skip"
+            android:key="verifycert"
+            android:entries="@array/verify_cert_entry"
+            android:entryValues="@array/verify_cert_value"
+            android:title="@string/verify_cert_list">
+        </io.github.xSocks.preferences.SummaryListPreference>
+
+        <Preference
+            android:title="@string/ca_file_list"
+            android:key="caFile"
+            ></Preference>
+        <CheckBoxPreference
+                android:key="isAutoConnect"
+                android:summary="@string/auto_connect_summary"
+                android:title="@string/auto_connect">
+        </CheckBoxPreference>
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

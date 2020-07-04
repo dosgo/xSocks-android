@@ -1,0 +1,3 @@
+[submodule "jni/xSocks"]
+	path = jni/xSocks
+	url = https://github.com/lparam/xSocks.git
