@@ -1,13 +1,16 @@
 ## Xsocks for Android
 
-A [xSocks](https://github.com/lparam/xSocks) client for Android.
+A xSocks client for Android.
+
+Most source code sources https://github.com/lparam/xSocks.
+
+
 
 ### PREREQUISITES
 
 * JDK 1.8+
-* Android SDK r22+
-* Android NDK r9+
-* Android Studio 1.0+ (optional)
+* Android SDK r23+
+* Android Studio 4.0+ (optional)
 
 ### BUILD
 
@@ -15,17 +18,7 @@ A [xSocks](https://github.com/lparam/xSocks) client for Android.
 * Set environment variable `ANDROID_NDK_HOME`
 * Create your key following the instructions at http://developer.android.com/guide/publishing/app-signing.html#cert
 * Create your sign.gradle file like this
-```bash
-    android {
-        signingConfigs {
-            release {
-                storeFile file('/home/user/keystore/android.key')
-                    storePassword "password"
-                    keyAlias 'Android App Key'
-                    keyPassword "password"
-            }
-        }
-    }
+
 ```
 * Build native binaries
 ```bash
@@ -44,7 +37,7 @@ A [xSocks](https://github.com/lparam/xSocks) client for Android.
 
 ### LICENSE
 
-Copyright (C) 2015 lparam
+Copyright (C) 2020 dosgo
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
