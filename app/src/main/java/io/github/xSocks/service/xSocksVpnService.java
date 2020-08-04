@@ -307,7 +307,7 @@ public class xSocksVpnService extends VpnService {
                     resolved = true;
                 }
                 //检测连通
-                if(config.protocol=="wss"){
+                if(config.protocol.equals("wss")){
                     boolean PortState=Utils.checkConnect(config.proxy,config.remotePort);
                     if (!PortState) {
                         resolved = false;
