@@ -178,18 +178,10 @@ public class xSocksVpnService extends VpnService {
         Log.d("cmd:",cmd);
         qproxyProcess=Console.execCommand(cmd);
         if(qproxyProcess==null){
-
             return ;
         }
-        BufferedReader in = new BufferedReader(new InputStreamReader(qproxyProcess.getInputStream()));
-        String line;
-        while ((line = in.readLine()) != null) {
-            System.out.println(line);
-        }
-        BufferedReader in1 = new BufferedReader(new InputStreamReader(qproxyProcess.getErrorStream()));
-        while ((line = in1.readLine()) != null) {
-            System.out.println(line);
-        }
+        printMessage(qproxyProcess.getInputStream());
+        printMessage(qproxyProcess.getErrorStream());
         try {
             qproxyProcess.waitFor();
         }catch (InterruptedException e){
@@ -201,7 +193,21 @@ public class xSocksVpnService extends VpnService {
     }
 
 
-
+    private static void printMessage(final InputStream input) {
+        new Thread(new Runnable() {
+            public void run() {
+                BufferedReader bf = new BufferedReader(new InputStreamReader(input));
+                String line = null;
+                try {
+                    while((line=bf.readLine())!=null) {
+                        System.out.println(line);
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+        }
+        }).start();
+    }
 
     private int startVpn() throws IOException {
         Builder builder = new Builder();
