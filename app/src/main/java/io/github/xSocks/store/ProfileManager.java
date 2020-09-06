@@ -38,7 +38,7 @@ public class ProfileManager {
         profile.setBypass(settings.getBoolean(Constants.Key.isBypassApps, false));
         profile.setUdpdns(settings.getBoolean(Constants.Key.isUdpDns, false));
         profile.setName(settings.getString(Constants.Key.profileName, "Default"));
-        profile.setHost(settings.getString(Constants.Key.proxy, ""));
+        profile.setProxy(settings.getString(Constants.Key.proxy, ""));
         profile.setPassword(settings.getString(Constants.Key.sitekey, ""));
         profile.setRoute(settings.getString(Constants.Key.route, "all"));
 
@@ -64,7 +64,7 @@ public class ProfileManager {
         edit.putBoolean(Constants.Key.isBypassApps, profile.isBypass());
         edit.putBoolean(Constants.Key.isUdpDns, profile.isUdpdns());
         edit.putString(Constants.Key.profileName, profile.getName());
-        edit.putString(Constants.Key.proxy, profile.getHost());
+        edit.putString(Constants.Key.proxy, profile.getProxy());
         edit.putString(Constants.Key.sitekey, profile.getPassword());
         edit.putString(Constants.Key.remotePort, Integer.toString(profile.getRemotePort()));
         edit.putString(Constants.Key.localPort, Integer.toString(profile.getLocalPort()));

@@ -302,22 +302,14 @@ public class xSocksVpnService extends VpnService {
         Async.runAsync(Schedulers.newThread(), (observer, subscription) -> {
             if (config != null) {
                 killProcesses();
-                boolean resolved = false;
-                if (!Utils.isIPv4Address(config.proxy) && !Utils.isIPv6Address(config.proxy)) {
-                    String addr = Utils.resolve(config.proxy, true);
-                    if (addr != null) {
-                        config.proxy = addr;
-                        resolved = true;
-                    }
-                } else {
-                    resolved = true;
-                }
+                boolean resolved = true;
                 //检测连通
                 if(config.protocol.equals("wss")){
                     boolean PortState=Utils.checkConnect(config.proxy,config.remotePort);
                     if (!PortState) {
                         resolved = false;
                     }
+                    Log.e("proxy:",config.proxy);
                 }
 
                 if (resolved && startDaemons()) {

@@ -117,6 +117,14 @@ public class Utils {
     }
 
     public static Boolean checkConnect(String host, int port) {
+        if (!Utils.isIPv4Address(host) && !Utils.isIPv6Address(host)) {
+              String addr = Utils.resolve(host, true);
+              if (addr != null) {
+                  host = addr;
+              }else{
+                  return false;
+              }
+        }
         Socket sClient = null;
         try {
             SocketAddress saAdd = new InetSocketAddress(host.trim(), port);

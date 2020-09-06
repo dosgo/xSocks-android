@@ -7,8 +7,8 @@ public class Profile {
     private int id = 0;
     @SerializedName("name")
     private String name = "Untitled";
-    @SerializedName("host")
-    private String host = "";
+    @SerializedName("proxy")
+    private String proxy = "";
     @SerializedName("localPort")
     private int localPort = 1080;
     @SerializedName("remotePort")
@@ -33,8 +33,8 @@ public class Profile {
         this.name = name;
     }
 
-    public void setHost(String host) {
-        this.host = host;
+    public void setProxy(String host) {
+        this.proxy = host;
     }
 
     public void setLocalPort(int localPort) {
@@ -73,8 +73,8 @@ public class Profile {
         return this.name;
     }
 
-    public String getHost() {
-        return this.host;
+    public String getProxy() {
+        return this.proxy;
     }
 
     public int getLocalPort() {
