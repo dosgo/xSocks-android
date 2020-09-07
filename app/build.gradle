@@ -13,8 +13,8 @@ android {
         applicationId "io.github.xSocks"
         minSdkVersion 21
         targetSdkVersion 23
-        versionCode 150
-        versionName '1.0.7'
+        versionCode 151
+        versionName '1.0.8'
     }
     lintOptions {
         abortOnError true
@@ -32,7 +32,7 @@ android {
                 abortOnError false
             }
             zipAlignEnabled true
-            minifyEnabled true
+            minifyEnabled false
             shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
