@@ -15,10 +15,12 @@
     <string-array name="protocol_entry">
                 <item>WebSocket</item>
                 <item>Quic</item>
+                <item>Sctp</item>
     </string-array>
     <string-array name="protocol_value" translatable="false">
         <item>wss</item>
         <item>quic</item>
+        <item>sctp</item>
     </string-array>
     <string-array name="verify_cert_entry">
                 <item>skip verify</item>
