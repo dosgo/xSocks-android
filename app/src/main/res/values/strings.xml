@@ -85,6 +85,7 @@
 
     <string name="protocol_list">Protocol</string>
     <string name="verify_cert_list">Verify Cert</string>
+    <string name="tun_type_list">Proxy Mode</string>
     <string name="ca_file_list">Ca Cert File</string>
 
 </resources>

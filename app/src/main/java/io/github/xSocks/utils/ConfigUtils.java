@@ -29,6 +29,7 @@ public class ConfigUtils {
 
 
         String verifyCert = settings.getString(Constants.Key.verifyCert, "skip");
+        String tunType = settings.getString(Constants.Key.tunType, "1");
 
         String profileName = settings.getString(Constants.Key.profileName, "Default");
         String proxy = settings.getString(Constants.Key.proxy, "");
@@ -43,7 +44,7 @@ public class ConfigUtils {
         String proxiedAppString = settings.getString(Constants.Key.proxied, "");
 
         return new Config(isGlobalProxy, isBypassApps, isUdpDns, profileName, proxy,
-                sitekey, proxiedAppString, route,protocol,caFile,verifyCert, remotePort, localPort);
+                sitekey, proxiedAppString, route,protocol,caFile,verifyCert,tunType, remotePort, localPort);
     }
 
 }

@@ -34,4 +34,12 @@
         <item>self_signed</item>
         <item>root_cert</item>
     </string-array>
+    <string-array name="tun_type_entry">
+        <item>tun2socks</item>
+        <item>raw tun</item>
+    </string-array>
+    <string-array name="tun_type_value" translatable="false">
+        <item>1</item>
+        <item>2</item>
+    </string-array>
 </resources>

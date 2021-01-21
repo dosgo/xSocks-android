@@ -172,10 +172,10 @@ public class xSocksVpnService extends VpnService {
         if(config.verifyCert.equals("self_signed")){
             cmd=cmd+" -caFile "+config.caFile;
         }
-        cmd=cmd+" -tunType 1";
+        cmd=cmd+" -tunType "+config.tunType;
         cmd=cmd+" -mtu "+VPN_MTU;
         cmd=cmd+" -unixSockTun "+Constants.Path.BASE + "tunDevSock";
-        Log.d("cmd:",cmd);
+        System.out.println("xsocks cmd:"+cmd);
         qproxyProcess=Console.execCommand(cmd);
         if(qproxyProcess==null){
             return ;

@@ -10,6 +10,7 @@ public class Config implements Parcelable {
     public boolean isUdpDns = false;
 
     public String verifyCert="skip";
+    public String tunType="1";
     public String profileName = "Untitled";
     public String protocol="wss";
     public String caFile="";
@@ -34,7 +35,7 @@ public class Config implements Parcelable {
 
     public Config(boolean isGlobalProxy, boolean isBypassApps,
                   boolean isUdpDns, String profileName, String proxy, String sitekey,
-                  String proxiedAppString, String route,String protocol, String caFile,String verifyCert,int remotePort, int localPort) {
+                  String proxiedAppString, String route,String protocol, String caFile,String verifyCert,String tunType,int remotePort, int localPort) {
         this.isGlobalProxy = isGlobalProxy;
         this.isBypassApps = isBypassApps;
         this.isUdpDns = isUdpDns;
@@ -46,6 +47,7 @@ public class Config implements Parcelable {
         this.protocol = protocol;
         this.caFile=caFile;
         this.verifyCert=verifyCert;
+        this.tunType=tunType;
         this.remotePort = remotePort;
         this.localPort = localPort == 0 ? this.localPort : localPort;
     }
@@ -59,6 +61,7 @@ public class Config implements Parcelable {
         isBypassApps = in.readInt() == 1;
         isUdpDns = in.readInt() == 1;
         verifyCert = in.readString();
+        tunType = in.readString();
         profileName = in.readString();
         proxy = in.readString();
         sitekey = in.readString();
@@ -87,6 +90,7 @@ public class Config implements Parcelable {
         out.writeString(route);
         out.writeString(protocol);
         out.writeString(verifyCert);
+        out.writeString(tunType);
         out.writeString(caFile);
         out.writeInt(remotePort);
         out.writeInt(localPort);

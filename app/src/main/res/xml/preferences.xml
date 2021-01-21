@@ -88,6 +88,14 @@
             android:title="@string/verify_cert_list">
         </io.github.xSocks.preferences.SummaryListPreference>
 
+        <io.github.xSocks.preferences.SummaryListPreference
+            android:defaultValue="1"
+            android:key="tuntype"
+            android:entries="@array/tun_type_entry"
+            android:entryValues="@array/tun_type_value"
+            android:title="@string/tun_type_list">
+        </io.github.xSocks.preferences.SummaryListPreference>
+
         <Preference
             android:title="@string/ca_file_list"
             android:key="caFile"

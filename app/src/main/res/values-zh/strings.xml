@@ -79,7 +79,13 @@
     <item>收费证书</item>
   </string-array>
 
+  <string-array name="tun_type_entry">
+    <item>tun2socks</item>
+    <item>原始tun</item>
+  </string-array>
+
   <string name="protocol_list">协议</string>
   <string name="verify_cert_list">证书校验</string>
+  <string name="tun_type_list">代理模式</string>
   <string name="ca_file_list">自签名证书文件</string>
 </resources>

@@ -48,6 +48,7 @@ public class Constants {
         public static final String isBypassApps = "isBypassApps";
         public static final String isUdpDns = "isUdpDns";
         public static final String verifyCert="verifycert";
+        public static final String tunType="tuntype";
 
         public static final String protocol="protocol";
         public static final String caFile="caFile";
