@@ -120,6 +120,7 @@ public class xSocksVpnThread extends Thread {
                     }
                 }
             }  catch(Exception e){
+                stopThread();
                 this.vpnService.changeState(Constants.State.STOPPED,this.vpnService.getString(R.string.service_failed));
                 Log.e(TAG, "Error when accept socket", e);
             }
