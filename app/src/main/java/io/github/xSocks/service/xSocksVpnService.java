@@ -200,7 +200,7 @@ public class xSocksVpnService extends VpnService {
                 String line = null;
                 try {
                     while((line=bf.readLine())!=null) {
-                        System.out.println(line);
+                        System.out.println("xsocks-cli:"+line);
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
