@@ -77,6 +77,7 @@ public class xSocksVpnThread extends Thread {
                         InputStream tunnelIn = tunnel.getInputStream();
                         FileOutputStream out = new FileOutputStream(vpnService.vpnInterface.getFileDescriptor());
                         while (isRunning) {
+                            packet.clear();
                             // Read the incoming packet from the tunnel.
                             int length = tunnelIn.read(packet.array());
                             if (length > 0) {
@@ -84,7 +85,6 @@ public class xSocksVpnThread extends Thread {
                                 packet.flip();
                                 // Write the incoming packet to the output stream.
                                 out.write(packet.array(),0, length);
-                                packet.clear();
                             }else{
                                 Thread.sleep(5);
                             }
@@ -99,13 +99,13 @@ public class xSocksVpnThread extends Thread {
                 // Packets received need to be written to this output stream.
                 OutputStream tunnelInOut = tunnel.getOutputStream();
                 while (isRunning) {
+                    packet.clear();
                     // Read the outgoing packet from the input stream.
                     int length = in.read(packet.array());
                     if (length > 0) {
                         // Write the outgoing packet to the tunnel.
                         packet.flip();
                         tunnelInOut.write(packet.array(), 0, length);
-                        packet.clear();
                     }else{
                         Thread.sleep(20);
                     }
