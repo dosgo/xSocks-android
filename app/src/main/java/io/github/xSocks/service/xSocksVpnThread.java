@@ -72,6 +72,7 @@ public class xSocksVpnThread extends Thread {
             // Packets received need to be written to this output stream.
             new Thread() {
                 public void run() {
+                    int length=0;
                     try {
                         ByteBuffer packet = ByteBuffer.allocateDirect(ByteBufLen);
                         InputStream tunnelIn = tunnel.getInputStream();
@@ -79,7 +80,7 @@ public class xSocksVpnThread extends Thread {
                         while (isRunning) {
                             packet.clear();
                             // Read the incoming packet from the tunnel.
-                            int length = tunnelIn.read(packet.array());
+                            length = tunnelIn.read(packet.array());
                             if (length > 0) {
                                // packet.limit(length);
                                 packet.flip();
@@ -90,6 +91,7 @@ public class xSocksVpnThread extends Thread {
                             }
                     }
                     } catch (Exception e) {
+                        System.out.println("tun recv exit length:"+length);
                         e.printStackTrace();
                     }
                 }
