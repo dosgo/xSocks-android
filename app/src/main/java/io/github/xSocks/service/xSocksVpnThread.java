@@ -21,6 +21,7 @@ import java.nio.ByteBuffer;
 import java.nio.channels.DatagramChannel;
 import java.nio.channels.FileChannel;
 import java.nio.channels.SocketChannel;
+import java.util.Arrays;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -78,18 +79,24 @@ public class xSocksVpnThread extends Thread {
                         InputStream tunnelIn = tunnel.getInputStream();
                         FileOutputStream out = new FileOutputStream(vpnService.vpnInterface.getFileDescriptor());
                         while (isRunning) {
-                            packet.clear();
-                            // Read the incoming packet from the tunnel.
-                            length = tunnelIn.read(packet.array());
-                            if (length > 0) {
-                               // packet.limit(length);
-                                packet.flip();
-                                // Write the incoming packet to the output stream.
-                                out.write(packet.array(),0, length);
-                            }else{
-                                Thread.sleep(5);
+                            try {
+                                packet.clear();
+                                // Read the incoming packet from the tunnel.
+                                length = tunnelIn.read(packet.array());
+                                if (length > 0) {
+                                   // packet.limit(length);
+                                    packet.flip();
+                                    // Write the incoming packet to the output stream.
+                                    out.write(packet.array(),0, length);
+                                }else{
+                                    Thread.sleep(5);
+                                }
+                            } catch (Exception e) {
+                                System.out.println("tun recv err length:"+length);
+                                e.printStackTrace();
+                                System.out.println("tun recv err buf:"+ Arrays.toString(packet.array()));
                             }
-                    }
+                        }
                     } catch (Exception e) {
                         System.out.println("tun recv exit length:"+length);
                         e.printStackTrace();
