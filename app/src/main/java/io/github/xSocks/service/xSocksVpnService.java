@@ -172,7 +172,11 @@ public class xSocksVpnService extends VpnService {
         if(config.verifyCert.equals("self_signed")){
             cmd=cmd+" -caFile "+config.caFile;
         }
-        cmd=cmd+" -tunType "+config.tunType;
+        if(config.protocol.equals("sudp")){
+            cmd = cmd + " -tunType 2";
+        }else {
+            cmd = cmd + " -tunType " + config.tunType;
+        }
         cmd=cmd+" -mtu "+VPN_MTU;
         cmd=cmd+" -unixSockTun "+Constants.Path.BASE + "tunDevSock";
         System.out.println("xsocks cmd:"+cmd);
@@ -210,6 +214,11 @@ public class xSocksVpnService extends VpnService {
     }
 
     private int startVpn() throws IOException {
+        //
+        if(config.protocol.equals("sudp")){
+            this.VPN_MTU=1500;
+        }
+
         Builder builder = new Builder();
         builder.setSession(config.profileName);
         builder.setMtu(VPN_MTU);

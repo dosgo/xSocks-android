@@ -60,6 +60,11 @@ public class PrefsFragment extends PreferenceFragment {
                     findPreference("verifycert").setEnabled(false);
                     findPreference("caFile").setEnabled(false);
                 }
+                if( o.equals("sudp")){
+                    findPreference("tuntype").setEnabled(false);
+                }else{
+                    findPreference("tuntype").setEnabled(true);
+                }
                 return true;
             }
         });

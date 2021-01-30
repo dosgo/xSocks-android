@@ -17,12 +17,14 @@
                 <item>Quic</item>
                 <item>Sctp</item>
                 <item>Kcp</item>
+                <item>Sudp</item>
     </string-array>
     <string-array name="protocol_value" translatable="false">
         <item>wss</item>
         <item>quic</item>
         <item>sctp</item>
         <item>kcp</item>
+        <item>sudp</item>
     </string-array>
     <string-array name="verify_cert_entry">
                 <item>skip verify</item>
