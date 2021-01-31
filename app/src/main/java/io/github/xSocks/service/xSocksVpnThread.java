@@ -111,6 +111,9 @@ public class xSocksVpnThread extends Thread {
                     packet.clear();
                     // Read the outgoing packet from the input stream.
                     int length = in.read(packet.array());
+                    if(length>vpnService.VPN_MTU){
+                        System.out.println("packet size> mtu:"+length);
+                    }
                     if (length > 0) {
                         // Write the outgoing packet to the tunnel.
                         packet.flip();

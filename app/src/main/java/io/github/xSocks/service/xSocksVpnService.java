@@ -216,7 +216,7 @@ public class xSocksVpnService extends VpnService {
     private int startVpn() throws IOException {
         //
         if(config.protocol.equals("sudp")){
-            this.VPN_MTU=1500;
+            this.VPN_MTU=5*256-2;//aes key 256 2mtulen
         }
 
         Builder builder = new Builder();
