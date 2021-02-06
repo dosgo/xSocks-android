@@ -222,6 +222,7 @@ public class PrefsFragment extends PreferenceFragment {
         switch (name) {
             case Constants.Key.profileName: updateProfileEditTextPreference(pref, profile.getName()); break;
             case Constants.Key.proxy: updateSummaryEditTextPreference(pref, profile.getProxy()); break;
+            case Constants.Key.protocol:updateListPreference(pref, profile.getProtocol());break;
             case Constants.Key.remotePort: updateSummaryEditTextPreference(pref, Integer.toString(profile.getRemotePort())); break;
             case Constants.Key.localPort: updateSummaryEditTextPreference(pref, Integer.toString(profile.getLocalPort())); break;
             case Constants.Key.sitekey: updatePasswordEditTextPreference(pref, profile.getPassword()); break;

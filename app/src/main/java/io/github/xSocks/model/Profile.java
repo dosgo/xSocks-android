@@ -17,6 +17,8 @@ public class Profile {
     private String password = "";
     @SerializedName("route")
     private String route = "all";
+    @SerializedName("protocol")
+    private String protocol = "wss";
     @SerializedName("global")
     private boolean global = true;
     @SerializedName("route_bypass")
@@ -91,6 +93,12 @@ public class Profile {
 
     public String getRoute() {
         return route;
+    }
+    public String getProtocol() {
+        return protocol;
+    }
+    public void setProtocol(String protocol) {
+        this.protocol = protocol;
     }
 
     public boolean isGlobal() {

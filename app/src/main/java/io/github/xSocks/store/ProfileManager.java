@@ -41,6 +41,7 @@ public class ProfileManager {
         profile.setProxy(settings.getString(Constants.Key.proxy, ""));
         profile.setPassword(settings.getString(Constants.Key.sitekey, ""));
         profile.setRoute(settings.getString(Constants.Key.route, "all"));
+        profile.setProtocol(settings.getString(Constants.Key.protocol, "wss"));
 
         try {
             profile.setRemotePort(Integer.valueOf(settings.getString(Constants.Key.remotePort, "1073")));
