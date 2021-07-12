@@ -53,7 +53,7 @@ public class PrefsFragment extends PreferenceFragment {
         findPreference("protocol").setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object o) {
-                if( o.equals("wss")) {
+                if( o.equals("wss")||o.equals("http2")) {
                     findPreference("caFile").setEnabled(true);
                     findPreference("verifycert").setEnabled(true);
                 }else{
