@@ -44,6 +44,7 @@ import io.github.xSocks.utils.Console;
 import io.github.xSocks.utils.Constants;
 import io.github.xSocks.utils.Utils;
 import rx.schedulers.Schedulers;
+import xsocks.Xsocks.*;
 import rx.util.async.Async;
 
 public class xSocksVpnService extends VpnService {
@@ -58,7 +59,6 @@ public class xSocksVpnService extends VpnService {
     int VPN_MTU = 1500*20;
     private final RemoteCallbackList<IxSocksServiceCallback> callbacks = new RemoteCallbackList<>();
     private xSocksVpnThread vpnThread;
-    private Process qproxyProcess = null;
 
     private IxSocksService.Stub binder = new IxSocksService.Stub() {
         @Override
@@ -144,12 +144,7 @@ public class xSocksVpnService extends VpnService {
         stopRunner();
     }
 
-    private void killProcesses() {
-        if (qproxyProcess != null) {
-            qproxyProcess.destroy();
-            qproxyProcess = null;
-        }
-    }
+
 
     private String readFromRaw(int resId) {
         InputStream in = this.getResources().openRawResource(resId);
@@ -163,55 +158,35 @@ public class xSocksVpnService extends VpnService {
     }
 
     private void startxSocksDaemon() throws IOException {
-        String cmd=Constants.Path.BASE + "socksX-cli";
-        cmd=cmd+" -serverAddr "+config.protocol+"://"+config.proxy+":"+config.remotePort;
-        cmd=cmd+" -password "+config.sitekey;
+        String serverAddr=config.protocol+"://"+config.proxy+":"+config.remotePort;
+        String password=config.sitekey;
+        String caFile="";
+        Boolean skipVerify=false;
+        Integer tunType=0;
+        String unixSockTun="";
+        Integer smartDns=0;
+        Integer localDns=0;
+        Integer muxNum=0;
+        Integer udpProxy=1;
+        Integer mtu=4500;
+        Boolean tunSmartProxy=false;
         if(config.verifyCert.equals("skip")){
-            cmd=cmd+" -skipVerify ";
+            skipVerify=true;
         }
         if(config.verifyCert.equals("self_signed")){
-            cmd=cmd+" -caFile "+config.caFile;
+            caFile=config.caFile;
         }
         if(config.protocol.equals("sudp")){
-            cmd = cmd + " -tunType 2";
+            tunType= 2;
         }else {
-            cmd = cmd + " -tunType " + config.tunType;
+            tunType= Integer.parseInt(config.tunType);
         }
-        cmd=cmd+" -mtu "+VPN_MTU;
-        cmd=cmd+" -unixSockTun "+Constants.Path.BASE + "tunDevSock";
-        System.out.println("xsocks cmd:"+cmd);
-        qproxyProcess=Console.execCommand(cmd);
-        if(qproxyProcess==null){
-            return ;
-        }
-        printMessage(qproxyProcess.getInputStream());
-        printMessage(qproxyProcess.getErrorStream());
-        try {
-            qproxyProcess.waitFor();
-        }catch (InterruptedException e){
-
-        }
-        System.out.println("gocli exit\r\n");
-        changeState(Constants.State.STOPPED, getString(R.string.service_failed));
-        stopRunner();
+        mtu=VPN_MTU;
+        unixSockTun=Constants.Path.BASE + "tunDevSock";
+        xsocks.Xsocks.start("",serverAddr,password,caFile,skipVerify,tunType,unixSockTun,muxNum,localDns,smartDns,udpProxy,mtu,tunSmartProxy);
     }
 
 
-    private static void printMessage(final InputStream input) {
-        new Thread(new Runnable() {
-            public void run() {
-                BufferedReader bf = new BufferedReader(new InputStreamReader(input));
-                String line = null;
-                try {
-                    while((line=bf.readLine())!=null) {
-                        System.out.println("xsocks-cli:"+line);
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-        }
-        }).start();
-    }
 
     private int startVpn() throws IOException {
         //
@@ -310,7 +285,8 @@ public class xSocksVpnService extends VpnService {
         changeState(Constants.State.CONNECTING);
         Async.runAsync(Schedulers.newThread(), (observer, subscription) -> {
             if (config != null) {
-                killProcesses();
+                //关闭之前的
+                xsocks.Xsocks.shutdown();
                 boolean resolved = true;
                 //检测连通
                 if(config.protocol.equals("wss")){
@@ -341,7 +317,7 @@ public class xSocksVpnService extends VpnService {
         }
         stopForeground(true);
         changeState(Constants.State.STOPPING);
-        killProcesses();
+        xsocks.Xsocks.shutdown();
         if (vpnInterface != null) {
             try {
                 vpnInterface.close();

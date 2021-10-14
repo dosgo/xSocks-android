@@ -536,60 +536,13 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
 
 
 
-    private void install() {
-        try {
-            AssetManager assetManager = getAssets();
-            InputStream in = assetManager.open("iptable.txt");
-            OutputStream out = new FileOutputStream(Constants.Path.BASE + "iptable.txt");
-            copyFile(in, out);
-            in.close();
-            out.flush();
-            out.close();
-        }catch (Exception e){
 
-        }
-        copyAssets();
-        ArrayList<String> sb = new ArrayList<>();
-        for (String executable : Constants.executables) {
-            sb.add("chmod 755 " + Constants.Path.BASE + executable);
-        }
-        String[] commands = new String[sb.size()];
-        sb.toArray(commands);
-        Console.runCommand(commands);
-    }
 
     private void reset() {
-        install();
+
     }
 
-    private void copyAssets() {
-        String path = Build.SUPPORTED_ABIS[0];
-        String[] paths=path.split("-");
-        path=paths[0];
-        path=path.toLowerCase();
-        AssetManager assetManager = getAssets();
-        String file="socksX-cli";
-        InputStream in;
-        OutputStream out;
-        try {
-            in = assetManager.open(file+"_"+path);
-            out = new FileOutputStream(Constants.Path.BASE + file);
-            copyFile(in, out);
-            in.close();
-            out.flush();
-            out.close();
-        } catch (IOException e) {
-            Log.d(TAG, "Copy file error: " + e.getMessage());
-        }
-    }
 
-    private void copyFile(InputStream in, OutputStream out) throws IOException {
-        byte[] buffer = new byte[1024];
-        int read;
-        while ((read = in.read(buffer)) != -1) {
-            out.write(buffer, 0, read);
-        }
-    }
 
     private String getVersionName() {
         String version;
