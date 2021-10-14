@@ -231,6 +231,8 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
 
         registerReceiver(preferenceReceiver, new IntentFilter(Constants.Action.UPDATE_PREFS));
         Async.runAsync(Schedulers.newThread(), (observer, subscription) -> attachService());
+        Async.toAsync(this::install,null);
+
     }
 
     @Override
@@ -513,6 +515,32 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
         changeSwitch(false);
     }
 
+
+    private void install() {
+        try {
+            AssetManager assetManager = getAssets();
+            InputStream in = assetManager.open("iptable.txt");
+            OutputStream out = new FileOutputStream(Constants.Path.BASE + "iptable.txt");
+            Log.d("ipFile",Constants.Path.BASE + "iptable.txt");
+            copyFile(in, out);
+            in.close();
+            out.flush();
+            out.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        xsocks.Xsocks.init();
+    }
+
+    private void copyFile(InputStream in, OutputStream out) throws IOException {
+        byte[] buffer = new byte[1024];
+        int read;
+        while ((read = in.read(buffer)) != -1) {
+            out.write(buffer, 0, read);
+        }
+    }
+
+
     private void serviceStop() {
         if (vpnService != null) {
             try {
@@ -539,7 +567,7 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
 
 
     private void reset() {
-
+        install();
     }
 
 

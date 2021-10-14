@@ -183,7 +183,8 @@ public class xSocksVpnService extends VpnService {
         }
         mtu=VPN_MTU;
         unixSockTun=Constants.Path.BASE + "tunDevSock";
-        xsocks.Xsocks.start("",serverAddr,password,caFile,skipVerify,tunType,unixSockTun,muxNum,localDns,smartDns,udpProxy,mtu,tunSmartProxy);
+        String ipFile=Constants.Path.BASE + "iptable.txt";
+        xsocks.Xsocks.start("",serverAddr,password,caFile,skipVerify,tunType,unixSockTun,muxNum,localDns,smartDns,udpProxy,mtu,tunSmartProxy,ipFile);
     }
 
 
