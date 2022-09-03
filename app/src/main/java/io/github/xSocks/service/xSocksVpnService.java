@@ -176,11 +176,9 @@ public class xSocksVpnService extends VpnService {
         if(config.verifyCert.equals("self_signed")){
             caFile=config.caFile;
         }
-        if(config.protocol.equals("sudp")){
-            tunType= 2;
-        }else {
-            tunType= Integer.parseInt(config.tunType);
-        }
+     
+        tunType= Integer.parseInt(config.tunType);
+        
         mtu=VPN_MTU;
         unixSockTun=Constants.Path.BASE + "tunDevSock";
         String ipFile=Constants.Path.BASE + "iptable.txt";
@@ -190,11 +188,7 @@ public class xSocksVpnService extends VpnService {
 
 
     private int startVpn() throws IOException {
-        //
-        if(config.protocol.equals("sudp")){
-            this.VPN_MTU=5*256-2;//aes key 256 2mtulen
-        }
-
+     
         Builder builder = new Builder();
         builder.setSession(config.profileName);
         builder.setMtu(VPN_MTU);

@@ -1,0 +1,20 @@
+JvmtiExport can_access_local_variables 0
+JvmtiExport can_hotswap_or_post_breakpoint 0
+JvmtiExport can_post_on_exceptions 0
+# 163 ciObject found
+ciMethod java/lang/Object <init> ()V 4097 1 193264 0 -1
+ciMethod java/lang/String <init> ([CII)V 2049 1 5447 0 -1
+ciMethod java/lang/String charAt (I)C 4097 1 785256 0 -1
+ciMethod java/lang/System arraycopy (Ljava/lang/Object;ILjava/lang/Object;II)V 7169 1 896 0 -1
+ciMethod java/lang/AbstractStringBuilder <init> (I)V 761 1 18859 0 -1
+ciMethod java/lang/AbstractStringBuilder ensureCapacityInternal (I)V 2641 1 79531 0 -1
+ciMethod java/lang/AbstractStringBuilder newCapacity (I)I 689 1 4846 0 -1
+ciMethod java/lang/AbstractStringBuilder append (Ljava/lang/String;)Ljava/lang/AbstractStringBuilder; 1249 1 5348 0 -1
+ciMethod java/lang/AbstractStringBuilder append (C)Ljava/lang/AbstractStringBuilder; 2737 1 69911 0 -1
+ciMethod java/lang/StringBuilder <init> ()V 657 1 11881 0 -1
+ciMethod java/lang/StringBuilder append (Ljava/lang/String;)Ljava/lang/StringBuilder; 1153 1 19287 0 -1
+ciMethod java/lang/StringBuilder append (C)Ljava/lang/StringBuilder; 2097 1 17898 0 -1
+ciMethod java/lang/StringBuilder toString ()Ljava/lang/String; 681 1 13311 0 -1
+ciMethod java/lang/Math min (II)I 3073 1 53716 0 -1
+ciMethod java/util/Arrays copyOf ([CI)[C 913 1 16906 0 -1
+ciMethodData java/lang/String charAt (I)C 2 785301 orig 264 88 29 173 82 0 0 0 0 176 61 233 20 0 0 0 0 120 1 0 0 32 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 77 68 79 32 101 120 116 114 97 32 100 97 116 97 32 108 111 99 107 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 25 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 2 0 0 169 204 95 0 1 0 0 0 0 0 0 0 0 0 0 0 2 0 0 0 0 0 0 0 0 0 0 0 80 0 0 0 255 255 255 255 7 0 1 0 0 0 0 0 data 10 0x10007 0x0 0x40 0xbf995 0xa0007 0xbf995 0x30 0x0 0x120002 0x0 oops 0
