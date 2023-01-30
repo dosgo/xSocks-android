@@ -58,7 +58,6 @@ public class xSocksVpnService extends VpnService {
     private int callbackCount = 0;
     int VPN_MTU = 1500*20;
     private final RemoteCallbackList<IxSocksServiceCallback> callbacks = new RemoteCallbackList<>();
-    private xSocksVpnThread vpnThread;
 
     private IxSocksService.Stub binder = new IxSocksService.Stub() {
         @Override
@@ -146,18 +145,7 @@ public class xSocksVpnService extends VpnService {
 
 
 
-    private String readFromRaw(int resId) {
-        InputStream in = this.getResources().openRawResource(resId);
-        Scanner scanner = new Scanner(in,"UTF-8").useDelimiter("\\A");
-        StringBuilder sb = new StringBuilder();
-        while (scanner.hasNext()) {
-            sb.append(scanner.next());
-        }
-        scanner.close();
-        return sb.toString();
-    }
-
-    private void startxSocksDaemon() throws IOException {
+    private void startxSocksDaemon(Integer tunFd) throws IOException {
         String serverAddr=config.protocol+"://"+config.proxy+":"+config.remotePort;
         String password=config.sitekey;
         String caFile="";
@@ -180,9 +168,8 @@ public class xSocksVpnService extends VpnService {
         tunType= Integer.parseInt(config.tunType);
         
         mtu=VPN_MTU;
-        unixSockTun=Constants.Path.BASE + "tunDevSock";
         String ipFile=Constants.Path.BASE + "iptable.txt";
-        xsocks.Xsocks.start("",serverAddr,password,caFile,skipVerify,tunType,unixSockTun,muxNum,localDns,smartDns,udpProxy,mtu,tunSmartProxy,ipFile);
+        xsocks.Xsocks.start("",serverAddr,password,caFile,skipVerify,tunType,"",tunFd,muxNum,localDns,smartDns,udpProxy,mtu,tunSmartProxy,ipFile);
     }
 
 
@@ -221,6 +208,7 @@ public class xSocksVpnService extends VpnService {
         }
 
         builder.addRoute("0.0.0.0", 0);
+        builder.setBlocking(false);
      //  builder.setBlocking(true);
         vpnInterface = builder.establish();
         if (vpnInterface == null) {
@@ -239,14 +227,12 @@ public class xSocksVpnService extends VpnService {
                     @Override
                     public void run() {
                         try {
-                            startxSocksDaemon();
+                            startxSocksDaemon(fd);
                         }catch (IOException e){
 
                         }
                     }
                 }).start();
-                vpnThread = new xSocksVpnThread(this);
-                vpnThread.start();
                 return true;
             }
         } catch (IOException e) {
@@ -306,10 +292,6 @@ public class xSocksVpnService extends VpnService {
     }
 
     private void stopRunner() {
-        if (vpnThread != null) {
-            vpnThread.stopThread();
-            vpnThread = null;
-        }
         stopForeground(true);
         changeState(Constants.State.STOPPING);
         xsocks.Xsocks.shutdown();
