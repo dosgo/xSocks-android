@@ -180,7 +180,7 @@ public class xSocksVpnService extends VpnService {
         builder.setSession(config.profileName);
         builder.setMtu(VPN_MTU);
         builder.addAddress(VPN_ADDRESS, 24);
-        builder.addDnsServer("8.8.4.4");
+        builder.addDnsServer("114.114.114.114");
         if (Utils.isLollipopOrAbove()) {
             try {
                 if (!config.isGlobalProxy) {
@@ -208,9 +208,8 @@ public class xSocksVpnService extends VpnService {
         }
 
         builder.addRoute("0.0.0.0", 0);
-        builder.setBlocking(false);
      //  builder.setBlocking(true);
-        vpnInterface = builder.establish();
+        vpnInterface = builder.setBlocking(false).establish();
         if (vpnInterface == null) {
             Log.e(TAG, "vpn interface is null");
             return -1;
