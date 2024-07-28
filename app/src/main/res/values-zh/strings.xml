@@ -81,7 +81,6 @@
 
   <string-array name="tun_type_entry">
     <item>tun2socks</item>
-    <item>原始tun</item>
   </string-array>
 
   <string name="protocol_list">协议</string>
