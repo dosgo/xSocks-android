@@ -10,10 +10,10 @@ android {
     compileSdkVersion 23
     defaultConfig {
         applicationId "io.github.xSocks"
-        minSdkVersion 21
+        minSdkVersion 23
         targetSdkVersion 23
         versionCode 153
-        versionName '1.1.6'
+        versionName '1.1.7'
     }
     lintOptions {
         abortOnError true

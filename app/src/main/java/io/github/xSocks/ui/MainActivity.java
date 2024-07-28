@@ -529,7 +529,6 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
         }catch (Exception e){
             e.printStackTrace();
         }
-        xsocks.Xsocks.init();
     }
 
     private void copyFile(InputStream in, OutputStream out) throws IOException {
