@@ -15,13 +15,11 @@
     <string-array name="protocol_entry">
                 <item>WebSocket</item>
                 <item>Quic</item>
-                <item>Kcp</item>
                 <item>Http2</item>
     </string-array>
     <string-array name="protocol_value" translatable="false">
         <item>wss</item>
         <item>quic</item>
-        <item>kcp</item>
         <item>http2</item>
     </string-array>
     <string-array name="verify_cert_entry">
@@ -36,10 +34,8 @@
     </string-array>
     <string-array name="tun_type_entry">
         <item>tun2socks</item>
-        <item>raw tun</item>
     </string-array>
     <string-array name="tun_type_value" translatable="false">
         <item>1</item>
-        <item>2</item>
     </string-array>
 </resources>
